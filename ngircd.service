@@ -1,0 +1,13 @@
+[Unit]
+Description=Next Generation IRC Daemon
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/ngircd
+PIDFile=/run/ngircd/ngircd.pid
+User=noname
+Group=noname
+
+[Install]
+WantedBy=multi-user.target
