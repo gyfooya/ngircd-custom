@@ -1,13 +1,21 @@
 [Unit]
-Description=Next Generation IRC Daemon
+Description=ngIRCd IRC Daemon
 After=network.target
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/ngircd
+Type=simple
+User=irc
+Group=irc
 PIDFile=/run/ngircd/ngircd.pid
-User=noname
-Group=noname
+WorkingDirectory=/var/lib/ngircd
+ExecStart=/usr/bin/ngircd -n -f /etc/ngircd.conf
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+# Sécurise l’environnement
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
 
 [Install]
 WantedBy=multi-user.target
